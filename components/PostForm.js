@@ -5,17 +5,24 @@ const PostForm = () => {
         let content = formData.get('content');
         let author = "anon"; // Assuming you have an author field in your form
         let post_type = "echo"; 
+        let requestBody = {
+            "title": title,
+            "content": content,
+            "author": author,
+            "post_type": post_type
+        };
         try {
             const response = await fetch('https://post.nxtnet.in/', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
               },
-              body: JSON.stringify({ title, content, author, post_type }),
+              body: JSON.stringify(requestBody),
             });
         
             if (response.ok) {
-                console.log("submit post");
+                var resbody = await response.json()
+                console.log("submit post", resbody );
             } else {
                 console.log("could not submit post");
             }

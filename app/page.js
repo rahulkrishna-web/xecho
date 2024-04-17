@@ -39,7 +39,7 @@ export default function Home() {
     <>
     <Navbar />
     <main className="flex justify-center py-8">
-    <div className="w-1/3">
+    <div className="w-full md:w-1/3 px-4">
       <PostForm onSubmit={submitPost} />
       {serverResponse && <Notice message={serverResponse} />} {/* Display the notice */}
       {/* Render 10 placeholder cards */}

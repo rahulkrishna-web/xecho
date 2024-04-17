@@ -7,33 +7,13 @@ import PostForm from "@/components/PostForm";
 import Notice from '@/components/Notice';
 import Card from "@/components/Card";
 import Pagination from '@/components/Pagination';
+import { submitPost } from '@/components/server/submitPost';
 
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 10; // Placeholder for total pages
   const [serverResponse, setServerResponse] = useState(null); // State for server response
-
-  const submitPost = async (content) => {
-    try {
-      const response = await fetch('http://post.nxtnet.in/api/posts', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ content }),
-      });
-  
-      if (response.ok) {
-        setServerResponse('Post created successfully!'); // Set success message
-      } else {
-        setServerResponse('Error creating post. Please try again.'); // Set error message
-      }
-    } catch (error) {
-      console.error('Failed to submit post:', error);
-      setServerResponse('An error occurred. Please try again later.'); // Set generic error message
-    }
-  };
 
   return (
     <>

@@ -17,7 +17,7 @@ const PostsList = () => {
     return(
         <div>
       {posts.filter(post => post.content != "" ).map(post => (
-        <Card key={post.id} content={post.content} />
+        <Card key={post.id} content={post.content} created={post.created_at} />
       ))}
     </div>
     );

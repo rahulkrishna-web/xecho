@@ -1,7 +1,5 @@
-export default async function createPost(formData){
-    console.log("submit post:",);
+export default async function createPost(content){
     let title = "default title"; // Assuming you have a title field in your form
-    let content = formData.get('content');
     let author = "anon"; // Assuming you have an author field in your form
     let post_type = "echo"; 
     let requestBody = {
@@ -20,10 +18,9 @@ export default async function createPost(formData){
         });
     
         if (response.ok) {
-            var resbody = await response.json()
-            console.log("submit post", resbody );
+            return await response.json()
         } else {
-            console.log("could not submit post");
+            return "Error: Could not create post.";
         }
       } catch (error) {
         console.error('Failed to submit post:', error);

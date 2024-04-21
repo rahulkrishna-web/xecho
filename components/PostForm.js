@@ -10,9 +10,10 @@ const PostForm = () => {
   const [message, setMessage] = useState('');
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
-  const submitPost = async (formData) => {
+  const submitPost = async (event) => {
     try {
-      await createPost(formData);
+      event.preventDefault();
+      createPost(content);
       setMessage('Post created successfully!');
       setContent('');
     } catch (error) {

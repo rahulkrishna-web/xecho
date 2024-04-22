@@ -1,28 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Link from 'next/link';
 import Card from './Card';
+import AppStateContext from './context/AppStateContext';
 
 const PostsList = () => {
-    const [posts, setPosts] = useState([]);
+  const { posts } = useContext(AppStateContext);
 
-    useEffect(() => {
-        const fetchPosts = async () => {
-          const response = await fetch('https://post.nxtnet.in');
-          const data = await response.json();
-          setPosts(data);
-        };
-    
-        fetchPosts();
-      }, []);
-
+  if (!posts) {
+    return <div>Loading...</div>;
+  }
     return(
-        <div>
-      {posts.filter(post => post.content != "" ).map(post => (
-        <Link href={`/post/${post.id}`} key={post.id}>
-        <Card key={post.id} content={post.content} created={post.created_at} />
-        </Link>
-      ))}
-    </div>
+       <div>
+    {posts && posts.map((post, index) => (
+      <ul key={index}>
+      <Card content={post.content} author={post.author} created={post.created_at}/>
+      </ul>
+    ))}
+  </div>
     );
 }
 

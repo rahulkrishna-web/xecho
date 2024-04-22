@@ -1,21 +1,26 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { FiSmile } from "react-icons/fi";
 import { FiXCircle } from "react-icons/fi";
 import Draggable from 'react-draggable';
 import EmojiPicker from 'emoji-picker-react';
 import createPost from "./actions/createPost";
+import AppStateContext from './context/AppStateContext';
+import Notice from './Notice';
 
 const PostForm = () => {
   const [content, setContent] = useState('');
   const [message, setMessage] = useState('');
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const { posts, setPosts } = useContext(AppStateContext);
 
   const submitPost = async (event) => {
     try {
       event.preventDefault();
-      createPost(content);
+      const newPost = await createPost(content);
+      setPosts([newPost, ...posts]);
       setMessage('Post created successfully!');
       setContent('');
+      return newPost;
     } catch (error) {
       setMessage('Error creating post: ' + error.message);
     }
@@ -35,7 +40,7 @@ const PostForm = () => {
 
   return (
     <>
-    {message && <div>{message}</div>}
+    {message && <Notice>{message}</Notice>}
     <form onSubmit={submitPost} className="mb-4">
       <div className="flex">
         <textarea

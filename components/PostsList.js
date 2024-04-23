@@ -12,9 +12,11 @@ const PostsList = () => {
     return(
        <div>
     {posts && posts.map((post, index) => (
-      <ul key={index}>
-      <Card content={post.content} author={post.author} created={post.created_at}/>
-      </ul>
+      <div key={index}>
+      <Link href={`/post/${post.id}`}>
+        <Card content={post.content} author={post.author} created={post.created_at}/>
+      </Link>
+      </div>
     ))}
   </div>
     );

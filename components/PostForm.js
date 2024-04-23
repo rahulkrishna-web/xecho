@@ -40,7 +40,6 @@ const PostForm = () => {
 
   return (
     <>
-    {message && <Notice>{message}</Notice>}
     <form onSubmit={submitPost} className="mb-4">
       <div className="flex">
         <textarea
@@ -90,6 +89,7 @@ const PostForm = () => {
         )}
       </div>
     </form>
+    {message && <Notice>{message}</Notice>}
     </>
   );
 };

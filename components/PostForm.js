@@ -9,6 +9,7 @@ import Notice from './Notice';
 
 const PostForm = () => {
   const [content, setContent] = useState('');
+  const [sharing, setSharing] = useState('private');
   const [message, setMessage] = useState('');
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const { posts, setPosts } = useContext(AppStateContext);
@@ -16,7 +17,7 @@ const PostForm = () => {
   const submitPost = async (event) => {
     try {
       event.preventDefault();
-      const newPost = await createPost(content);
+      const newPost = await createPost(content, sharing);
       setPosts([newPost, ...posts]);
       setMessage('Post created successfully!');
       setContent('');
@@ -60,6 +61,15 @@ const PostForm = () => {
             <FiSmile size={26}/>
           </button>
         </div>
+        <select
+          name="sharing"
+          value={sharing}
+          onChange={(e) => setSharing(e.target.value)}
+          className="block w-full p-2 border rounded mx-2"
+        >
+          <option value="public">Public</option>
+          <option value="private">Private</option>
+        </select>
         <button
           type="submit"
           className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
